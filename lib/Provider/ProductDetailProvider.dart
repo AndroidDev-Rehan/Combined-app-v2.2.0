@@ -1,0 +1,41 @@
+import 'package:eshop/Model/Section_Model.dart';
+import 'package:flutter/cupertino.dart';
+
+class ProductDetailProvider extends ChangeNotifier {
+  bool _reviewLoading = true;
+  bool _moreProductLoading = true;
+
+  List<Product> _compareList = [];
+
+  get compareList => _compareList;
+
+  get moreProductLoading => _moreProductLoading;
+
+  get reviewLoading => _reviewLoading;
+
+  setReviewLoading(bool loading) {
+    _moreProductLoading = loading;
+    notifyListeners();
+  }
+
+  setProductLoading(bool loading) {
+    _moreProductLoading = loading;
+    notifyListeners();
+  }
+
+  addComFirstIndex(Product compareList) {
+    _compareList.insert(0, compareList);
+    notifyListeners();
+  }
+
+  addCompareList(Product compareList) {
+    _compareList.add(compareList);
+    notifyListeners();
+  }
+
+  removeCompareList()
+  {
+    _compareList.clear();
+    notifyListeners();
+  }
+}
