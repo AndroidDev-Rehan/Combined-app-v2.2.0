@@ -86,22 +86,22 @@ class AllCategoryState extends State<AllCategory> {
       }
       return Row(
         children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                  color: Theme.of(context).colorScheme.lightWhite,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    controller: _scrollControllerOnCategory,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsetsDirectional.only(top: 10.0),
-                    itemCount: catList.length,
-                    itemBuilder: (context, index) {
-                      return catItem(index, context);
-                    },
-                  ))),
+          // Expanded(
+          //     flex: 1,
+          //     child: Container(
+          //         color: Theme.of(context).colorScheme.lightWhite,
+          //         child: ListView.builder(
+          //           physics: BouncingScrollPhysics(
+          //               parent: AlwaysScrollableScrollPhysics()),
+          //           controller: _scrollControllerOnCategory,
+          //           shrinkWrap: true,
+          //           scrollDirection: Axis.vertical,
+          //           padding: EdgeInsetsDirectional.only(top: 10.0),
+          //           itemCount: catList.length,
+          //           itemBuilder: (context, index) {
+          //             return catItem(index, context);
+          //           },
+          //         ))),
           Expanded(
             flex: 3,
             child: catList.length > 0
@@ -165,7 +165,7 @@ class AllCategoryState extends State<AllCategory> {
                                   padding: EdgeInsets.symmetric(horizontal: 20),
                                   crossAxisCount: 3,
                                   shrinkWrap: true,
-                                  childAspectRatio: .6,
+                                  childAspectRatio: 0.8,
                                   children: List.generate(
                                     data.length,
                                     (index) {
@@ -319,31 +319,51 @@ class AllCategoryState extends State<AllCategory> {
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: CircleAvatar(
-                radius: 45.0,
-                backgroundColor: Theme.of(context).colorScheme.white,
-                child: ClipOval(
-                    child: FadeInImage(
-                  image: CachedNetworkImageProvider(subList[index].image!),
-                  fadeInDuration: Duration(milliseconds: 150),
-                  fit: BoxFit.fill,
+              child: Container(
+                padding: EdgeInsets.only(left: 12,right: 12, top: 12, bottom: 0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.white,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipOval(
+                        child: FadeInImage(
+                      image: CachedNetworkImageProvider(subList[index].image!),
+                      fadeInDuration: Duration(milliseconds: 150),
+                      fit: BoxFit.fill,
            /*       height: MediaQuery.of(context).size.height *0.4,
-                  width: MediaQuery.of(context).size.height *0.4,*/
-                  imageErrorBuilder: (context, error, stackTrace) =>
-                      erroWidget(50),
-                  placeholder: placeHolder(50),
-                )),
+                      width: MediaQuery.of(context).size.height *0.4,*/
+                      imageErrorBuilder: (context, error, stackTrace) =>
+                          erroWidget(50),
+                      placeholder: placeHolder(50),
+                    )),
+                    SizedBox(height: 10,),
+                    Text(
+                      subList[index].name!.toLowerCase().capitalize() + "\n",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(color: Theme.of(context).colorScheme.fontColor),
+                    )
+
+                  ],
+                ),
               )),
-          Text(
-            subList[index].name!.toLowerCase().capitalize() + "\n",
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .caption!
-                .copyWith(color: Theme.of(context).colorScheme.fontColor),
-          )
+          // Text(
+          //   subList[index].name!.toLowerCase().capitalize() + "\n",
+          //   textAlign: TextAlign.center,
+          //   maxLines: 2,
+          //   overflow: TextOverflow.ellipsis,
+          //   style: Theme.of(context)
+          //       .textTheme
+          //       .caption!
+          //       .copyWith(color: Theme.of(context).colorScheme.fontColor),
+          // )
         ],
       ),
       onTap: () {
